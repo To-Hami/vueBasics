@@ -1,6 +1,6 @@
 <template >
 <hr>  
-<div class="border border-primary">
+<div class="border border-primary ">
     <h2 class="border border-primary"> Format componant </h2>
 
     <ul class="list-group">
@@ -23,15 +23,24 @@
         <option value="backend">Backend</option>
         <option value="both">Both</option>
     </select>
-
+    <p>{{message}}</p>
     <button class="btn btn-primary my-2" v-on:click="addLang">Add Lang</button>
+
+    <hr>
+
+    <p> Frontend Langs Count : {{getcountFrontend}}</p>
+    <p> Backend Langs Count : {{getcountBackend}}</p>
 </div>
+
+
+
 </template>
 
 <script >
 
 
-  export default {
+export default {
+   
  data(){
     return{
         langs:[
@@ -45,9 +54,11 @@
 
         newLang:"",
         newClass:"bg-danger",
-        type:"dsfsdf"
+        type:"dsfsdf",
+        message:"Youe selected is : "
     }
    },
+   
 
    methods:{
         addLang(){
@@ -78,7 +89,43 @@
 
 
 
-   }
-  }
+   } ,
+    computed:{
+        getcountBackend(){
+            let  countBackend = 0 
+            
+            this.langs.map((value) => {
+                if(value.type == 'backend'){
+                    countBackend ++
+                }
+            })
+            return countBackend
+
+        },
+
+        getcountFrontend(){
+            let countFrontend = 0 
+            
+            this.langs.map((value) => {
+                if(value.type == 'frontend'){
+                    countFrontend ++
+                }
+            })
+
+            return countFrontend
+
+        }
+    } ,
+
+    watch:{
+        type(newVal , oldVal){
+            console.log("new val is  : " + newVal)
+            this.message = "Youe selected is : "
+            this.message = this.message + newVal
+            
+        }
+    }
+    
+}
 
 </script>
