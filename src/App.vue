@@ -96,7 +96,7 @@
 
             
         <div class="my-3">
-                <childformat :name="name" @ShowText="funShowText($event)"  @ShowTextFun="eventfunhere($event)" ></childformat>
+                <childformat :name="name" @ShowText="funShowText($event)"  @ShowTextFun="eventfunhere($event)"  ></childformat>
 
         </div>
 
@@ -116,20 +116,30 @@
               <router-link :to="{name: 'post'}" class="btn btn-primary my-2 mx-2">Post</router-link>
                <router-link :to="{name: 'compostionapi'}" class="btn btn-primary my-2 mx-2">Compostion api</router-link>
                <router-link :to="{name: 'head'}" class="btn btn-primary my-2 mx-2">Head</router-link>
-               <router-link :to="{name: 'heat'}" class="btn btn-primary my-2 mx-2">Heats</router-link>
+               <router-link :to="{name: 'heat'}" class="btn btn-primary my-2 mx-2" >Heats</router-link>
           </div>
 
           
             <router-view></router-view>
+
+
+            <div class="my-3">
+                <Tasks :mytasks="mytasks"></Tasks>
+
+            </div>
+
         </div>
 </template>
 
 <script>
-    import { computed } from 'vue'
+
+
+    import { computed, ref} from 'vue'
     import first from './views/first.vue'
     import format from './views/format.vue'
     import Childformat from './views/Childformat.vue'
     import heat from './views/Heat.vue'
+    import Tasks from './views/Tasks.vue'
     export default {
     /* 
 
@@ -239,6 +249,8 @@
                         const myName="Tohami";
                         return {myName}
                     }
+            *** props to pass data from parent componant to child
+
 
 
 
@@ -249,7 +261,19 @@
 
 
         */
-        components: { first  ,format  , Childformat,heat},
+        components: { first  ,format  , Childformat,heat , Tasks},
+
+        setup(){
+            const mytasks =ref( [
+                 {id:1,'name': 'Tohami' , 'age':20  },
+                 {id:2,'name': 'Sami' , 'age':40  },
+                 {id:3,'name': 'Ali' , 'age':33  },
+                 {id:4,'name': 'Mazin' , 'age':19  },
+                 {id:5,'name': 'Gehad' , 'age':13 },
+                 {id:6,'name': 'amier' , 'age':11 },
+                ]);
+                return {mytasks}
+            },
     
         data(){
             return{
